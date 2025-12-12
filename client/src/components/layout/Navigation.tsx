@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -17,6 +18,38 @@ const navItems = [
   { path: "/documentation", label: "Documentation" },
   { path: "/contact", label: "Contact" },
 ];
+
+const menuVariants = {
+  closed: {
+    opacity: 0,
+    y: -20,
+    transition: {
+      duration: 0.3,
+      ease: "easeIn",
+    },
+  },
+  open: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+};
+
+const itemVariants = {
+  closed: { opacity: 0, y: -10 },
+  open: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.05,
+      duration: 0.3,
+      ease: "easeOut",
+    },
+  }),
+};
 
 export function Navigation() {
   const [location] = useLocation();
@@ -59,13 +92,20 @@ export function Navigation() {
                   key={item.path} 
                   href={item.path}
                   data-testid={`link-nav-${item.label.toLowerCase()}`}
-                  className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                  className={`relative px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
                     location === item.path
-                      ? "text-foreground bg-muted"
+                      ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {item.label}
+                  {location === item.path && (
+                    <motion.div
+                      className="absolute inset-0 bg-muted rounded-md -z-10"
+                      layoutId="activeNavItem"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </Link>
               ))}
             </div>
@@ -83,29 +123,43 @@ export function Navigation() {
         </nav>
       </header>
 
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm lg:hidden"
-          data-testid="mobile-menu-overlay"
-        >
-          <nav className="flex flex-col items-center justify-center h-full gap-4 pt-16">
-            {navItems.map((item) => (
-              <Link 
-                key={item.path} 
-                href={item.path}
-                data-testid={`link-mobile-${item.label.toLowerCase()}`}
-                className={`px-6 py-3 text-lg font-medium rounded-md transition-colors ${
-                  location === item.path
-                    ? "text-foreground bg-muted"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      )}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm lg:hidden"
+            data-testid="mobile-menu-overlay"
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={menuVariants}
+          >
+            <nav className="flex flex-col items-center justify-center h-full gap-4 pt-16">
+              {navItems.map((item, i) => (
+                <motion.div
+                  key={item.path}
+                  custom={i}
+                  variants={itemVariants}
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                >
+                  <Link 
+                    href={item.path}
+                    data-testid={`link-mobile-${item.label.toLowerCase()}`}
+                    className={`px-6 py-3 text-lg font-medium rounded-md transition-colors ${
+                      location === item.path
+                        ? "text-foreground bg-muted"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </motion.div>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

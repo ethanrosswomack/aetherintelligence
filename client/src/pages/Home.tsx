@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 import { Brain, Shield, Cpu, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -25,36 +26,93 @@ const systemLayers = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
+
 export default function Home() {
   return (
     <PageLayout>
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-violet-950/20 via-background to-background" />
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+          <motion.div 
+            className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl"
+            animate={{ 
+              y: [0, -20, 0],
+              scale: [1, 1.05, 1],
+            }}
+            transition={{ 
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div 
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+            animate={{ 
+              y: [0, 20, 0],
+              scale: [1, 1.08, 1],
+            }}
+            transition={{ 
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          />
         </div>
         
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
-          <h1 
+          <motion.h1 
             className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6 leading-tight"
             data-testid="text-hero-title"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             Intelligence for
             <br />
             <span className="bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
               Complex Systems
             </span>
-          </h1>
-          <p 
+          </motion.h1>
+          <motion.p 
             className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
             data-testid="text-hero-description"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
           >
             Aether Intelligence applies structured reasoning to complex systems. 
             Research, synthesis, and decision support—built on a foundation of 
             memory and governed by principled constraints.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          </motion.p>
+          <motion.div 
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+          >
             <Link href="/contact">
               <Button size="lg" data-testid="button-hero-contact">
                 Begin Inquiry
@@ -66,11 +124,17 @@ export default function Home() {
                 Explore Capabilities
               </Button>
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-24 px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        className="py-24 px-4 sm:px-6 lg:px-8"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 
@@ -85,32 +149,45 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid md:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             {systemLayers.map((layer, index) => (
-              <Card 
-                key={layer.title}
-                className="relative p-8 bg-card border-card-border overflow-visible"
-                data-testid={`card-system-layer-${index}`}
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${layer.accent} rounded-lg opacity-50`} />
-                <div className="relative">
-                  <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-6">
-                    <layer.icon className="h-6 w-6 text-foreground" />
+              <motion.div key={layer.title} variants={cardVariants}>
+                <Card 
+                  className="relative p-8 bg-card border-card-border overflow-visible"
+                  data-testid={`card-system-layer-${index}`}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${layer.accent} rounded-lg opacity-50`} />
+                  <div className="relative">
+                    <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-6">
+                      <layer.icon className="h-6 w-6 text-foreground" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground mb-3">
+                      {layer.title}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {layer.description}
+                    </p>
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3">
-                    {layer.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {layer.description}
-                  </p>
-                </div>
-              </Card>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="py-24 px-4 sm:px-6 lg:px-8 border-t border-border">
+      <motion.section 
+        className="py-24 px-4 sm:px-6 lg:px-8 border-t border-border"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
         <div className="max-w-4xl mx-auto text-center">
           <h2 
             className="text-3xl sm:text-4xl font-bold text-foreground mb-6"
@@ -130,7 +207,7 @@ export default function Home() {
             </Button>
           </Link>
         </div>
-      </section>
+      </motion.section>
     </PageLayout>
   );
 }
