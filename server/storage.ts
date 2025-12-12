@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type ContactMessage, type InsertContactMessage } from "@shared/schema";
+import { type User, type InsertUser, type ContactMessage, type InsertContactMessage, type NewsletterSubscription, type InsertNewsletterSubscription } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -7,15 +7,19 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
   getContactMessages(): Promise<ContactMessage[]>;
+  createNewsletterSubscription(subscription: InsertNewsletterSubscription): Promise<NewsletterSubscription>;
+  getNewsletterSubscriptionByEmail(email: string): Promise<NewsletterSubscription | undefined>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
   private contactMessages: Map<string, ContactMessage>;
+  private newsletterSubscriptions: Map<string, NewsletterSubscription>;
 
   constructor() {
     this.users = new Map();
     this.contactMessages = new Map();
+    this.newsletterSubscriptions = new Map();
   }
 
   async getUser(id: string): Promise<User | undefined> {
@@ -49,6 +53,23 @@ export class MemStorage implements IStorage {
 
   async getContactMessages(): Promise<ContactMessage[]> {
     return Array.from(this.contactMessages.values());
+  }
+
+  async createNewsletterSubscription(insertSubscription: InsertNewsletterSubscription): Promise<NewsletterSubscription> {
+    const id = randomUUID();
+    const subscription: NewsletterSubscription = {
+      ...insertSubscription,
+      id,
+      subscribedAt: new Date(),
+    };
+    this.newsletterSubscriptions.set(id, subscription);
+    return subscription;
+  }
+
+  async getNewsletterSubscriptionByEmail(email: string): Promise<NewsletterSubscription | undefined> {
+    return Array.from(this.newsletterSubscriptions.values()).find(
+      (sub) => sub.email === email
+    );
   }
 }
 
