@@ -1,8 +1,30 @@
 import { useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { FileText, BookOpen, Code, Shield, Search } from "lucide-react";
+import { FileText, BookOpen, Code, Shield, Search, Download } from "lucide-react";
+
+const whitepapers = [
+  {
+    title: "System Architecture Overview",
+    description: "High-level architecture and component relationships across the three-layer system.",
+    filename: "system-architecture-overview.txt",
+    size: "4 KB",
+  },
+  {
+    title: "Sentinel Framework Governance",
+    description: "Governance philosophy, oversight mechanisms, and constraint enforcement.",
+    filename: "sentinel-framework-governance.txt",
+    size: "4 KB",
+  },
+  {
+    title: "Memory Architecture",
+    description: "Memory layers, continuity systems, and knowledge persistence mechanisms.",
+    filename: "memory-architecture.txt",
+    size: "4 KB",
+  },
+];
 
 const documentSections = [
   {
@@ -169,6 +191,54 @@ export default function Documentation() {
                 </div>
               </div>
             )}
+
+            <div className="pt-8 border-t border-border">
+              <h2 className="text-2xl font-semibold text-foreground mb-6">
+                Technical Whitepapers
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Downloadable technical documents for deeper understanding of 
+                system architecture and design principles.
+              </p>
+              <div className="grid gap-4">
+                {whitepapers.map((paper) => (
+                  <Card 
+                    key={paper.filename}
+                    className="p-4 bg-card border-card-border"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center shrink-0">
+                          <FileText className="h-5 w-5 text-foreground" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-foreground">
+                            {paper.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {paper.description}
+                          </p>
+                        </div>
+                      </div>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        asChild
+                        data-testid={`button-download-${paper.filename}`}
+                      >
+                        <a 
+                          href={`/whitepapers/${paper.filename}`} 
+                          download
+                        >
+                          <Download className="h-4 w-4 mr-2" />
+                          {paper.size}
+                        </a>
+                      </Button>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
 
             <div className="pt-8 border-t border-border">
               <h2 className="text-2xl font-semibold text-foreground mb-6">
