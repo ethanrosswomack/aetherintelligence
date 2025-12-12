@@ -55,17 +55,17 @@ export function Navigation() {
 
             <div className="hidden lg:flex items-center gap-1 flex-wrap justify-end">
               {navItems.map((item) => (
-                <Link key={item.path} href={item.path}>
-                  <span
-                    data-testid={`link-nav-${item.label.toLowerCase()}`}
-                    className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                      location === item.path
-                        ? "text-foreground bg-muted"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {item.label}
-                  </span>
+                <Link 
+                  key={item.path} 
+                  href={item.path}
+                  data-testid={`link-nav-${item.label.toLowerCase()}`}
+                  className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                    location === item.path
+                      ? "text-foreground bg-muted"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {item.label}
                 </Link>
               ))}
             </div>
@@ -90,17 +90,17 @@ export function Navigation() {
         >
           <nav className="flex flex-col items-center justify-center h-full gap-4 pt-16">
             {navItems.map((item) => (
-              <Link key={item.path} href={item.path}>
-                <span
-                  data-testid={`link-mobile-${item.label.toLowerCase()}`}
-                  className={`px-6 py-3 text-lg font-medium rounded-md transition-colors ${
-                    location === item.path
-                      ? "text-foreground bg-muted"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {item.label}
-                </span>
+              <Link 
+                key={item.path} 
+                href={item.path}
+                data-testid={`link-mobile-${item.label.toLowerCase()}`}
+                className={`px-6 py-3 text-lg font-medium rounded-md transition-colors ${
+                  location === item.path
+                    ? "text-foreground bg-muted"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {item.label}
               </Link>
             ))}
           </nav>
