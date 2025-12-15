@@ -1,0 +1,336 @@
+Excellent — this is where it becomes cohesive instead of just adjacent.
+
+Below is a single, authoritative Replit Agent prompt that explicitly ties AetherIntelligence.net into EverLightOS and The Sentinel Framework without collapsing them into one repo. This preserves modular sovereignty while making the relationship legible and intentional.
+
+You can paste this verbatim into Replit after importing the AetherIntelligence repo.
+
+
+---
+
+Replit Agent Prompt
+
+AetherIntelligence.net — EverLightOS × Sentinel Framework Integration
+
+Repositories (Context – Read Only)
+
+You have access to the following repositories for conceptual and architectural reference:
+
+Aether Intelligence (primary build target)
+https://github.com/Omniversal-Media-LLC/AetherIntelligence
+
+EverLightOS (operating substrate / intelligence OS)
+https://github.com/ethanrosswomack/EverLightOS
+
+The Sentinel Framework (governance, oversight, orchestration)
+https://github.com/omniversal-media-llc/thesentinelframework
+
+
+You are not merging repositories.
+You are expressing their relationship clearly through architecture, language, and navigation.
+
+
+---
+
+Role
+
+You are a senior systems architect and full-stack engineer.
+
+Your task is to evolve AetherIntelligence.net into the public-facing intelligence layer that:
+
+Explains what Aether Intelligence is
+
+Shows how it is powered by EverLightOS
+
+Governed and safeguarded by The Sentinel Framework
+
+Without exposing internals or over-promising capabilities
+
+
+This site should feel like the tip of a much deeper system.
+
+
+---
+
+Conceptual Alignment (Critical)
+
+Relationship Model (Must Be Reflected in Copy)
+
+Aether Intelligence
+→ The applied intelligence, research, and synthesis layer
+→ What outsiders interact with
+
+EverLightOS
+→ The underlying intelligence operating system
+→ Memory, pattern recognition, orchestration, continuity
+
+The Sentinel Framework
+→ Oversight, integrity, constraints, safety, governance
+→ Ensures intelligence remains aligned, ethical, and bounded
+
+
+This relationship should be:
+
+Implicitly clear
+
+Calmly stated
+
+Never hype-driven
+
+
+
+---
+
+Site Structure (Updated v1)
+
+1. Home (/)
+
+Purpose: Establish the stack without diagrams or jargon overload.
+
+Sections:
+
+Identity statement for Aether Intelligence
+
+“How it works” (high level)
+
+A short three-layer explanation:
+
+Intelligence (Aether)
+
+Operating System (EverLightOS)
+
+Governance (Sentinel Framework)
+
+
+Call to action: inquiry / contact
+
+
+
+---
+
+2. About (/about)
+
+Purpose: Philosophy and intent.
+
+Include:
+
+Why Aether Intelligence exists
+
+Long-horizon systems thinking
+
+Commitment to clarity, restraint, and signal integrity
+
+Explicit mention:
+
+“Built on EverLightOS”
+
+“Governed by the Sentinel Framework”
+
+
+
+No personal bios.
+
+
+---
+
+3. Capabilities (/capabilities)
+
+Purpose: Describe what is possible without claiming deployment.
+
+Sections:
+
+Intelligence synthesis & research
+
+Knowledge and memory systems
+
+Decision-support architectures
+
+Automation with oversight
+
+Human-in-the-loop intelligence
+
+
+Tie each capability subtly back to:
+
+EverLightOS (memory / orchestration)
+
+Sentinel Framework (constraints / guardrails)
+
+
+
+---
+
+4. Systems (/systems) (New, Lightweight Page)
+
+Purpose: Clarify relationship without exposing internals.
+
+Content:
+
+Plain-language explanation of:
+
+EverLightOS (what it is, what it is not)
+
+Sentinel Framework (why it exists)
+
+
+No diagrams required
+
+No API claims
+
+No dashboards
+
+
+This page should read like a systems whitepaper excerpt, not marketing.
+
+
+---
+
+5. Contact (/contact)
+
+Simple frontend form
+
+Placeholder submit handler
+
+Email reference: contact@aetherintelligence.net
+
+
+
+---
+
+Technical Requirements
+
+Prefer existing stack in repo
+
+TypeScript if available
+
+Tailwind or existing styling system
+
+Dark-mode friendly
+
+Minimal dependencies
+
+Clean, readable components
+
+SEO metadata aligned with intelligence / systems language
+
+
+
+---
+
+Copy & Language Rules (Strict)
+
+No buzzwords
+
+No “revolutionary”, “disruptive”, “AGI”, “autonomous”
+
+No crypto or VC language
+
+Short, declarative sentences
+
+Calm authority
+
+
+Good example:
+
+> “Aether Intelligence applies structured reasoning to complex systems.”
+
+
+
+Bad example:
+
+> “We revolutionize AI with next-generation autonomous intelligence.”
+
+
+
+
+---
+
+What NOT to Do
+
+Do not merge repos
+
+Do not expose EverLightOS internals
+
+Do not claim production AI agents
+
+Do not add auth, databases, or dashboards
+
+Do not invent features not present conceptually
+
+
+
+---
+
+Workflow Instructions
+
+1. Inspect the current AetherIntelligence repo
+
+
+2. Summarize what exists
+
+
+3. Propose changes with justification
+
+
+4. Implement incrementally
+
+
+5. Ensure the site runs cleanly in Replit
+
+
+6. Leave it deploy-ready
+
+
+
+
+---
+
+End State
+
+The finished site should feel like:
+
+A front door to a serious intelligence stack
+
+Calmly confident
+
+Obviously intentional
+
+Clearly part of a larger ecosystem
+
+Not trying to convince — simply stating
+
+
+
+---
+
+Begin by:
+
+1. Auditing the current repo
+
+
+2. Explaining how it currently maps (or doesn’t) to EverLightOS + Sentinel
+
+
+3. Proposing the integration plan
+
+
+4. Then executing
+
+
+
+Proceed carefully and deliberately.
+
+
+---
+
+If you want next, I can:
+
+Write canonical language blocks shared across all three projects
+
+Draft a Systems Philosophy page reusable in EverLightOS docs
+
+Create a cross-repo README constellation
+
+Or help you design a future public whitepaper that ties all three together
+
+
+Just point the vector.
