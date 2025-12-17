@@ -103,6 +103,42 @@
 - Contact form
 - Documentation prose
 
+## Rules
+
+### Deployment Context
+The deploy error is happening because the build system is running inside `dist/`, and `dist/` is not a Node project (no package.json there). The repo’s actual Node project root is the top level (it has package.json, vite.config.ts, etc.), and `dist/` is supposed to be an output folder.
+
+**Fix the deploy settings (the actual root cause)**
+Wherever you’re deploying (Cloudflare Pages / Workers build UI / etc.), change:
+- **Root directory**: `.` (repo root) NOT `dist`
+- **Build command**: `npm ci && npm run build` (or `npm ci && node script/build.ts`)
+- **Build output directory**: `dist` (or whatever the build creates)
+
+### Prompt 1 — Establish the correct build + output
+Inspect the repository structure. Identify how the frontend (Vite) and backend (server/) are built and started. Determine what the dist/ folder is supposed to contain. Confirm which npm scripts exist in package.json and what they do. Then propose the correct CI/Pages build command and output directory.
+
+### Prompt 2 — Fix the “root directory = dist” mistake everywhere
+Search the repo for any CI/deploy configs (wrangler.toml, cloudflare pages config, package.json scripts, README instructions) that assume the root directory is dist. Update configs so builds run from repo root and only output to dist. Provide exact diffs/patches.
+
+### Prompt 3 — Make a single “build” command that always works
+Create or correct a root npm run build script that builds the client and server (if applicable) and writes deployable artifacts to dist/. Use script/build.ts if it’s intended for this. Ensure the command works on Linux in CI (no absolute paths, no assumptions about local env).
+
+### Prompt 4 — Sanity check: what should be deployed (static vs server)
+Determine whether this app is intended to deploy as:
+- static site only (Vite build), or
+- Node server (Express/etc), or
+- Cloudflare Worker/Pages Functions.
+Based on the repo files under server/ (index.ts, static.ts, vite.ts), recommend the correct deployment target and required config (Pages vs Workers). Provide the minimum viable deployment plan.
+
+### Prompt 5 — If deploying to Cloudflare Pages (static)
+Configure the project for Cloudflare Pages static deployment: build command, output directory, and any SPA routing (e.g., _redirects or routes.json). Ensure refresh on nested routes works. Add needed files under public/ if missing.
+
+### Prompt 6 — If deploying to a Node host instead (Render/Fly/VPS)
+Configure production start for a Node host: add npm run start that runs the built server, ensure static assets are served from the correct directory, and document required environment variables. Provide Dockerfile if helpful.
+
+### Prompt 7 — Tighten TypeScript/build correctness
+Run through TypeScript configs and Vite config to ensure build succeeds in CI. Fix any path alias issues, missing imports, or environment variable typing issues. Output a list of changes with file paths and reasoning.
+
 ## Critical Constraints
 - **No animations** except subtle fades and scroll-triggered reveals
 - **No buzzwords** in any copy
